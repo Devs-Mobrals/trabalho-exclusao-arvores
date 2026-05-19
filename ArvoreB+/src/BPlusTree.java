@@ -168,7 +168,6 @@ public class BPlusTree {
         return result;
     }
 
-    // ========================= DELETE =========================
 
     public void delete(int key) {
 
@@ -183,7 +182,6 @@ public class BPlusTree {
         leaf.keys.remove(index);
         leaf.values.remove(index);
 
-        // Atualiza chaves de roteamento
         updateParentKeys(leaf);
 
         if (leaf == root) {
@@ -216,7 +214,6 @@ public class BPlusTree {
             rightSibling = (LeafNode) parent.children.get(index + 1);
         }
 
-        // Redistribuição esquerda
         if (leftSibling != null && leftSibling.keys.size() > 1) {
 
             int borrowedKey =
@@ -233,7 +230,7 @@ public class BPlusTree {
             return;
         }
 
-        // Redistribuição direita
+
         if (rightSibling != null && rightSibling.keys.size() > 1) {
 
             int borrowedKey = rightSibling.keys.remove(0);
@@ -248,13 +245,12 @@ public class BPlusTree {
             return;
         }
 
-        // Merge
         if (leftSibling != null) {
 
             leftSibling.keys.addAll(leaf.keys);
             leftSibling.values.addAll(leaf.values);
 
-            // mantém lista ligada
+
             leftSibling.next = leaf.next;
 
             parent.children.remove(index);
@@ -265,7 +261,7 @@ public class BPlusTree {
             leaf.keys.addAll(rightSibling.keys);
             leaf.values.addAll(rightSibling.values);
 
-            // mantém lista ligada
+
             leaf.next = rightSibling.next;
 
             parent.children.remove(index + 1);
@@ -309,7 +305,6 @@ public class BPlusTree {
             rightSibling = (InternalNode) parent.children.get(index + 1);
         }
 
-        // Merge esquerda
         if (leftSibling != null) {
 
             leftSibling.keys.add(parent.keys.get(index - 1));
@@ -342,7 +337,6 @@ public class BPlusTree {
         rebalanceInternal(parent);
     }
 
-    // ========================= UPDATE ROUTING KEYS =========================
 
     private void updateParentKeys(LeafNode leaf) {
 

@@ -1,3 +1,4 @@
+
 public class ArvoreB {
     private NoB raiz;
 
@@ -126,17 +127,11 @@ public class ArvoreB {
 
                 no.chaves.remove(idx);
 
-                System.out.println(
-                        "Remoção " + valor +
-                                ": folha sem underflow"
-                );
+                System.out.println("Remoção " + valor + ": folha sem underflow");
             }
             else {
 
-                System.out.println(
-                        "Remoção " + valor +
-                                ": nó interno"
-                );
+                System.out.println("Remoção " + valor + ": nó interno");
 
                 removerInterno(no, idx);
             }
@@ -149,8 +144,7 @@ public class ArvoreB {
                 return;
             }
 
-            boolean ultimoFilho =
-                    (idx == no.chaves.size());
+            boolean ultimoFilho = (idx == no.chaves.size());
 
             NoB filho = no.filhos.get(idx);
 
@@ -159,8 +153,7 @@ public class ArvoreB {
                 ajustarFilho(no, idx);
             }
 
-            if (ultimoFilho
-                    && idx > no.chaves.size()) {
+            if (ultimoFilho && idx > no.chaves.size()) {
 
                 remover(no.filhos.get(idx - 1), valor);
             }
@@ -217,14 +210,10 @@ public class ArvoreB {
 
         while (!no.folha) {
 
-            no = no.filhos.get(
-                    no.filhos.size() - 1
-            );
+            no = no.filhos.get(no.filhos.size() - 1);
         }
 
-        return no.chaves.get(
-                no.chaves.size() - 1
-        );
+        return no.chaves.get(no.chaves.size() - 1);
     }
 
 
@@ -242,27 +231,18 @@ public class ArvoreB {
     private void ajustarFilho(NoB pai, int idx) {
 
 
-        if (idx > 0 &&
-                pai.filhos.get(idx - 1)
-                        .chaves.size() > minChaves) {
+        if (idx > 0 && pai.filhos.get(idx - 1).chaves.size() > minChaves) {
 
             emprestarEsquerda(pai, idx);
 
-            System.out.println(
-                    "Redistribuição pela esquerda"
-            );
+            System.out.println("Redistribuição pela esquerda");
         }
 
 
-        else if (idx < pai.filhos.size() - 1 &&
-                pai.filhos.get(idx + 1)
-                        .chaves.size() > minChaves) {
+        else if (idx < pai.filhos.size() - 1 && pai.filhos.get(idx + 1).chaves.size() > minChaves) {
 
             emprestarDireita(pai, idx);
-
-            System.out.println(
-                    "Redistribuição pela direita"
-            );
+            System.out.println("Redistribuição pela direita");
         }
 
 
@@ -289,11 +269,9 @@ public class ArvoreB {
 
         NoB irmao = pai.filhos.get(idx - 1);
 
-        filho.chaves.add(0,
-                pai.chaves.get(idx - 1));
+        filho.chaves.add(0, pai.chaves.get(idx - 1));
 
-        pai.chaves.set(idx - 1,
-                irmao.chaves.remove(irmao.chaves.size() - 1));
+        pai.chaves.set(idx - 1, irmao.chaves.remove(irmao.chaves.size() - 1));
 
         if (!irmao.folha) {
 
@@ -327,19 +305,13 @@ public class ArvoreB {
 
         NoB direito = pai.filhos.get(idx + 1);
 
-        esquerdo.chaves.add(
-                pai.chaves.remove(idx)
-        );
+        esquerdo.chaves.add(pai.chaves.remove(idx));
 
-        esquerdo.chaves.addAll(
-                direito.chaves
-        );
+        esquerdo.chaves.addAll(direito.chaves);
 
         if (!direito.folha) {
 
-            esquerdo.filhos.addAll(
-                    direito.filhos
-            );
+            esquerdo.filhos.addAll(direito.filhos);
         }
 
         pai.filhos.remove(idx + 1);
@@ -350,9 +322,7 @@ public class ArvoreB {
 
         int idx = 0;
 
-        while (idx < no.chaves.size()
-                && valor > no.chaves.get(idx)) {
-
+        while (idx < no.chaves.size() && valor > no.chaves.get(idx)) {
             idx++;
         }
 
